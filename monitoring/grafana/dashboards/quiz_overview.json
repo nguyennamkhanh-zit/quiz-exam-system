@@ -1,0 +1,110 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "MySQL Status",
+      "type": "stat",
+      "targets": [{ "expr": "mysql_up", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 4, "y": 0 },
+      "id": 2,
+      "title": "Nginx Status",
+      "type": "stat",
+      "targets": [{ "expr": "nginx_up", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 8, "y": 0 },
+      "id": 3,
+      "title": "Total HTTP Requests",
+      "type": "stat",
+      "targets": [{ "expr": "app_requests_total", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 12, "y": 0 },
+      "id": 4,
+      "title": "Total HTTP Errors",
+      "type": "stat",
+      "targets": [{ "expr": "app_http_errors_total", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 16, "y": 0 },
+      "id": 5,
+      "title": "Nginx Active Conns",
+      "type": "stat",
+      "targets": [{ "expr": "nginx_connections_active", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 4, "x": 20, "y": 0 },
+      "id": 6,
+      "title": "App Uptime (s)",
+      "type": "stat",
+      "targets": [{ "expr": "app_uptime_seconds", "refId": "A" }]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "id": 7,
+      "title": "Node.js App Heap Memory (Bytes)",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "app_nodejs_heap_used_bytes", "legendFormat": "Heap Used", "refId": "A" },
+        { "expr": "app_nodejs_heap_total_bytes", "legendFormat": "Heap Total", "refId": "B" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "id": 8,
+      "title": "Container CPU Usage Seconds",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_project=\"quiz-exam-system\"}[1m])", "legendFormat": "{{name}}", "refId": "A" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
+      "id": 9,
+      "title": "Container RAM Working Set (Bytes)",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "container_memory_working_set_bytes{container_label_com_docker_compose_project=\"quiz-exam-system\"}", "legendFormat": "{{name}}", "refId": "A" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
+      "id": 10,
+      "title": "MySQL Queries / s",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(mysql_global_status_queries[1m])", "legendFormat": "Queries/sec", "refId": "A" }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["quiz", "monitoring"],
+  "time": { "from": "now-15m", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Quiz Exam System - Overview Monitoring",
+  "uid": "quiz-exam-overview",
+  "version": 2
+}

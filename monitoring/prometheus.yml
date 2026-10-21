@@ -1,0 +1,30 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # 1. Giám sát chính Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+
+  # 2. Giám sát ứng dụng Quiz Node.js App
+  - job_name: 'quiz-app'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['app:18095']
+
+  # 3. Giám sát Nginx Web Server
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+
+  # 4. Giám sát MySQL Database Server
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['mysql-exporter:9104']
+
+  # 5. Giám sát Container CPU/RAM qua cAdvisor
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
