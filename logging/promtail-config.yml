@@ -1,0 +1,48 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # 1. Thu thập Nginx access và error logs từ shared volume
+  - job_name: nginx
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          project: quiz-exam-system
+          service: nginx
+          __path__: /var/log/nginx/*.log
+    pipeline_stages:
+      - match:
+          selector: '{service="nginx"}'
+          stages:
+            - json:
+                expressions:
+                  status: status
+                  request_method: request_method
+                  request_uri: request_uri
+                  remote_addr: remote_addr
+
+  # 2. Thu thập App container log qua shared volume file
+  - job_name: app
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          project: quiz-exam-system
+          service: app
+          __path__: /var/log/app/*.log
+    pipeline_stages:
+      - json:
+          expressions:
+            time: time
+            method: method
+            url: url
+            status: status
+            response_time_ms: response_time_ms
